@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Цифровой баланс | Тест + памятка для школьников</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fef9f0;
+            color: #5b4b3a;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 32px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Декоративные пастельные круги на фоне */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Карточки — пастельные тона */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 32px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #fce7f3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Декоративные иконки в углах карточек */
+        .card::before {
+            content: '🌸';
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 40px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Герой — пастельный градиент */
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #fef3e8 0%, #fae8ff 100%);
+            border: 1px solid #ffe4e6;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d97706, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #a16207;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero-img {
+            max-width: 180px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-img span {
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+            transition: transform 0.2s;
+        }
+
+        .hero-img span:hover {
+            transform: scale(1.1);
+        }
+
+        /* Заголовки */
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #b45309;
+            border-left: 4px solid #fbbf24;
+            padding-left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2 img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 20px 0 12px;
+            font-weight: 600;
+            color: #d97706;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Тест */
+        .question {
+            background: #fffbef;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+            border: 1px solid #fde68a;
+        }
+
+        .question p {
+            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 1rem;
+            color: #78350f;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .opt-btn {
+            background: #ffffff;
+            border: 1px solid #fcd34d;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-weight: 500;
+            color: #b45309;
+        }
+
+        .opt-btn.selected {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-color: #f59e0b;
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .result {
+            margin-top: 24px;
+            padding: 20px;
+            border-radius: 24px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .result-low { background: #ecfdf5; border: 1px solid #6ee7b7; color: #065f46; }
+        .result-medium { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+        .result-high { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+
+        /* Сетка шагов — пастельные карточки */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .step-card {
+            background: #fff9f0;
+            padding: 18px;
+            border-radius: 24px;
+            border: 1px solid #fde68a;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .step-card:hover {
+            background: #ffffff;
+            border-color: #fbbf24;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-num {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Слайдер */
+        .slider-card {
+            background: linear-gradient(135deg, #fef3e8, #fae8ff);
+            border: 1px solid #fde68a;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 16px 0;
+            height: 6px;
+            border-radius: 10px;
+            background: #fed7aa;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]:focus {
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f59e0b;
+            cursor: pointer;
+            box-shadow: 0 0 6px #f59e0b;
+        }
+
+        #sliderValue {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d97706;
+        }
+
+        /* Приложения */
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef3c7;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin: 5px;
+            color: #b45309;
+            font-weight: 500;
+            border: 1px solid #fde68a;
+            transition: all 0.2s;
+        }
+
+        .app-badge:hover {
+            background: #fde68a;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #d97706;
+            font-size: 0.8rem;
+            border-top: 1px solid #fde68a;
+            margin-top: 16px;
+        }
+
+        /* Стили для картинок-иконок */
+        .icon-pic {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 16px; }
+            .card { padding: 20px; }
+            .hero h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .hero-img span { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Герой с картинками -->
+    <div class="card hero">
+        <div class="hero-img">
+            <img src="0987.jpg" alt="weight 1px">
+        </div>
+        <h1>Цифровой баланс</h1>
+        <p>Проверь себя и узнай, как подружиться с телефоном без вреда для учёбы и настроения</p>
+    </div>
+
+    <!-- Тест -->
+    <div class="card" id="test">
+        <h2>📋 Тест: как сильно тебя затянул телефон?</h2>
+        <p>Честно ответь на 10 вопросов. <strong>0 — никогда / 1 — редко / 2 — часто / 3 — почти всегда</strong></p>
+
+        <div id="quiz"></div>
+        <button class="btn" id="calcBtn">✨ Узнать результат</button>
+        <div id="resultBox"></div>
+    </div>
+
+    <!-- Интерактивный слайдер -->
+    <div class="card slider-card">
+        <h3 style="margin-top: 0;">🕐 Сколько часов в день ты проводишь в телефоне?</h3>
+        <input type="range" id="screenSlider" min="0" max="12" step="1" value="6">
+        <p id="sliderValue" style="font-size: 2rem; font-weight: 700;">6 часов</p>
+        <p id="sliderComment" style="color: #b45309;">📊 У большинства твоих ровесников — 6–8 часов</p>
+    </div>
+
+    <!-- ПАМЯТКА: советы для школьников -->
+    <div class="card">
+        <h2>📌 10 простых советов для школьников</h2>
+        <div class="steps-grid">
+            <div class="step-card"><div class="step-num">1</div><strong>🛌 Телефон ночует на кухне</strong><br>Купи обычный будильник. Утром не будет соблазна зависнуть в телефоне вместо зарядки.</div>
+            <div class="step-card"><div class="step-num">2</div><strong>🔕 Отключи лишние уведомления</strong><br>Оставь только звонки и сообщения от родителей и лучших друзей. Остальное подождёт.</div>
+            <div class="step-card"><div class="step-num">3</div><strong>⚫ Чёрно-белый экран</strong><br>Настройки → Цветовые фильтры → Оттенки серого. Телефон станет скучнее — листать расхочется.</div>
+            <div class="step-card"><div class="step-num">4</div><strong>⏰ Лимит 30 минут в день</strong><br>Screen Time (iPhone) или Digital Wellbeing (Android). Тикток и соцсети — не больше получаса.</div>
+            <div class="step-card"><div class="step-num">5</div><strong>🧘 Пауза 5 минут</strong><br>Хочешь взять телефон? Подожди 5 минут. Подыши, посмотри в окно. Часто желание пропадает.</div>
+            <div class="step-card"><div class="step-num">6</div><strong>❓ Спроси себя «Зачем?»</strong><br>Если ответ «просто посмотреть» — не открывай. Телефон не для скуки.</div>
+            <div class="step-card"><div class="step-num">7</div><strong>⏲️ Таймер входа</strong><br>Зашёл в соцсети? Поставь таймер на 15 минут. Когда прозвенит — выключай без «ещё минуточку».</div>
+            <div class="step-card"><div class="step-num">8</div><strong>🚶‍♂️ Замени привычку</strong><br>Скучно? Встань, пройдись, отожмись, позвони другу (именно позвони, не пиши).</div>
+            <div class="step-card"><div class="step-num">9</div><strong>🌿 Цифровой выходной</strong><br>Один вечер в неделю — без телефона. Настолки, прогулка, кино с семьёй.</div>
+            <div class="step-card"><div class="step-num">10</div><strong>🐢 Маленькие шаги</strong><br>Не пытайся всё бросить за один день. Начни с одного совета. Через неделю добавь ещё один.</div>
+        </div>
+    </div>
+
+    <!-- Приложения и помощь -->
+    <div class="card">
+        <h2>📲 Приложения, которые помогут</h2>
+        <div>
+            <span class="app-badge">🌳 Forest</span>
+            <span class="app-badge">⚡ Opal</span>
+            <span class="app-badge">🎯 One Sec</span>
+            <span class="app-badge">📱 Screen Time</span>
+            <span class="app-badge">🤖 Digital Wellbeing</span>
+        </div>
+        <h3 style="margin-top: 28px;">🫂 Если чувствуешь, что сам не справляешься</h3>
+        <p>Поговори со школьным психологом. Это не стыдно. Или позвони на <strong>детский телефон доверия: 8-800-2000-122</strong> — анонимно и бесплатно.</p>
+    </div>
+
+    <footer>
+        🌸 Ты управляешь телефоном, а не он тобой
+    </footer>
+</div>
+
+<script>
+    // Вопросы теста
+    const questions = [
+        "Ты проводишь в телефоне больше времени, чем планировал?",
+        "Ты проверяешь телефон сразу после пробуждения?",
+        "Ты засыпаешь с телефоном в руках или проверяешь его ночью?",
+        "Ты чувствуешь тревогу или раздражение без телефона (села батарея, нет сети)?",
+        "Ты откладываешь важные дела (уроки, сон, еду) из-за телефона?",
+        "Ты пытался сократить время в телефоне, но у тебя не получилось?",
+        "Ты берёшь телефон в туалет, в душ или за едой?",
+        "Ты используешь телефон, чтобы не думать о проблемах или от скуки?",
+        "Родители или учителя говорят, что ты слишком много сидишь в телефоне?",
+        "Ты чувствуешь, что учёба страдает из-за отвлечений на телефон?"
+    ];
+
+    let userAnswers = new Array(10).fill(null);
+
+    // Рендер теста
+    const quizDiv = document.getElementById('quiz');
+    function renderQuiz() {
+        quizDiv.innerHTML = '';
+        questions.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.innerHTML = `<p>${idx+1}. ${q}</p><div class="options" id="q-${idx}"></div>`;
+            const optsDiv = qDiv.querySelector('.options');
+            const labels = ['никогда', 'редко', 'часто', 'почти всегда'];
+            for (let val = 0; val <= 3; val++) {
+                const btn = document.createElement('div');
+                btn.className = 'opt-btn';
+                btn.textContent = labels[val];
+                btn.dataset.val = val;
+                btn.onclick = () => {
+                    document.querySelectorAll(`#q-${idx} .opt-btn`).forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    userAnswers[idx] = val;
+                };
+                optsDiv.appendChild(btn);
+            }
+            quizDiv.appendChild(qDiv);
+        });
+    }
+    renderQuiz();
+
+    // Обработка результата
+    document.getElementById('calcBtn').addEventListener('click', () => {
+        if (userAnswers.includes(null)) {
+            document.getElementById('resultBox').innerHTML = '<div class="result result-medium">🌸 Ответь на все 10 вопросов, чтобы узнать результат.</div>';
+            return;
+        }
+        const total = userAnswers.reduce((a,b) => a+b, 0);
+        let resultHtml = '';
+        if (total <= 10) {
+            resultHtml = `<div class="result result-low">🟢 <strong>${total} из 30 — всё отлично</strong><br>У тебя хороший контроль. Посмотри советы 5 и 6, чтобы так и оставалось.</div>`;
+        } else if (total <= 20) {
+            resultHtml = `<div class="result result-medium">🟠 <strong>${total} из 30 — есть над чем подумать</strong><br>Телефон иногда отвлекает. Начни с малого: отключи уведомления и убери телефон из спальни.</div>`;
+        } else {
+            resultHtml = `<div class="result result-high">🔴 <strong>${total} из 30 — пора что-то менять</strong><br>Телефон мешает учёбе и настроению. Попробуй цифровой выходной и приложения-блокировщики. Если трудно — поговори с психологом.</div>`;
+        }
+        document.getElementById('resultBox').innerHTML = resultHtml;
+        document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Слайдер
+    const slider = document.getElementById('screenSlider');
+    const sliderVal = document.getElementById('sliderValue');
+    const sliderComment = document.getElementById('sliderComment');
+    slider.addEventListener('input', () => {
+        const hours = slider.value;
+        sliderVal.textContent = `${hours} часов`;
+        if (hours <= 3) sliderComment.innerHTML = '🌟 Ты молодец! Так держать.';
+        else if (hours <= 6) sliderComment.innerHTML = '📱 Примерно как у большинства. Можно чуть меньше — будет легче учиться.';
+        else sliderComment.innerHTML = '💤 Многовато. Попробуй провести один вечер без телефона — заметишь разницу.';
+    });
+</script>
+</body>
+</html>
